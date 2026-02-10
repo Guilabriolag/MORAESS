@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McClone vBeta</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#DA291C">
+<style>
+:raiz {
+  --cor-primária: #FFCC00;
+  --cor-secundária: #DA291C;
+  --bg: #fff;
+  --fonte: 'Inter', sem serifa;
+}
+corpo {
+  margem:0;
+  família-fonte:var(--fonte);
+  fundo:var(--bg);
+  cor: #333;
+}
+cabeçalho {
+  fundo:var(--color-secondary);
+  cor:#fff;
+  preenchimento:12px;
+  exibição:flex;
+  justify-content:space-between;
+  alinhar-itens:centro;
+  seleção do usuário:nenhum;
+}
+cabeçalho h1 {
+  margem:0;
+  tamanho da fonte: 1,2rem;
+  peso da fonte:negrito;
+}
+botão {
+  preenchimento: 8px 16px;
+  margem:4px 2px;
+  borda:nenhuma;
+  raio-da-borda:24px;
+  cursor:ponteiro;
+  peso da fonte: 600;
+  transição: todos os 0,2s de entrada e saída suaves;
+}
+botão:passar o mouse {
+  transformar:translateY(-1px);
+  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+}
+.btn-primary {background:var(--color-primary);color:#000;}
+.btn-secondary {background:var(--color-secondary);color:#fff;}
+.btn-ghost {background:transparent;color:var(--color-secondary);border:1px solid var(--color-secondary);}
+.btn-danger {background:#e53e3e;color:#fff;}
+.campo-de-entrada {
+  largura:calc(100% - 16px);
+  preenchimento:8px;
+  margem:4px 0;
+  borda:1px sólida #ccc;
+  raio-da-borda:8px;
+}
+.card-item {
+  borda:1px sólida #ddd;
+  raio-da-borda:8px;
+  overflow:oculto;
+  exibição:flex;
+  flex-direction:column;
+  cursor:ponteiro;
+  transição:transformar 0,2s;
+}
+.card-item:hover {transform:scale(1.02);}
+.card-item .thumb img {
+  largura: 100%;
+  altura: 120px;
+  ajuste-objeto:cobertura;
+}
+.gaveta {
+  posição: fixa;
+  topo:0;
+  direita:-320px;
+  largura: 320px;
+  altura: 100%;
+  fundo:#fff;
+  box-shadow:-2px 0 8px rgba(0,0,0,.3);
+  transição: 0,3s;
+  preenchimento:12px;
+  overflow-y:auto;
+  Índice z: 100;
+}
+.gaveta.abrir {direita:0;}
+.tela {
+  preenchimento:12px;
+  exibir:nenhum;
+}
+.screen.active {
+  exibir:bloco;
+}
+.small {font-size:0.75rem;color:#555;}
+.kv {font-size:0.7rem;color:#999;}
+.hr {border-top:1px solid #ccc;margin:6px 0;}
+#cartFab {
+  posição: fixa;
+  inferior:16px;
+  direita:16px;
+  fundo:var(--color-primary);
+  raio-da-borda:50%;
+  largura: 56px;
+  altura:56px;
+  exibição:flex;
+  alinhar-itens:centro;
+  justificar-conteúdo:centro;
+  cursor:ponteiro;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  índice z: 90;
+}
+#contagemdecarrinhos {
+  posição:absoluta;
+  topo:-4px;
+  direita:-4px;
+  fundo:vermelho;
+  cor:#fff;
+  raio-da-borda:50%;
+  largura: 20px;
+  altura: 20px;
+  tamanho da fonte: 0,7rem;
+  exibição:flex;
+  alinhar-itens:centro;
+  justificar-conteúdo:centro;
+}
+.tabs-container {
+  exibição:flex;
+  espaço:8px;
+  flex-wrap:wrap;
+  margem-inferior:12px;
+}
+.tab-btn {
+  preenchimento: 8px 16px;
+  raio-da-borda:24px;
+  cursor:ponteiro;
+  fundo:#eee;
+}
+.tab-btn.active {
+  fundo:var(--color-secondary);
+  cor:#fff;
+}
+.tab-content {display:none;}
+.tab-content.active {display:block;}
+.table-data {
+  largura: 100%;
+  colapso de borda:colapso;
+  tamanho da fonte: 0,8rem;
+  alinhamento de texto:esquerda;
+}
+.table-data th, .table-data td {
+  borda:1px sólida #ccc;
+  preenchimento:6px;
+}
+.table-data th {
+  fundo:#f0f0f0;
+}
+.brinde {
+  posição: fixa;
+  topo:20px;
+  Restante: 50%;
+  transformar:translateX(-50%);
+  preenchimento: 12px 24px;
+  fundo:rgba(0,0,0,0.8);
+  cor:#fff;
+  raio-da-borda:24px;
+  índice z: 1000;
+  opacidade: 0;
+  transição:opacidade 0,3s entrada e saída suaves;
+  eventos-ponteiro:nenhum;
+}
+.toast.show {
+  opacidade: 1;
+}
+.toggle-switch {
+  posição: relativa;
+  exibição: inline-block;
+  largura: 44px;
+  altura: 24px;
+}
+.toggle-switch input {
+  opacidade: 0;
+  largura: 0;
+  altura: 0;
+}
+.slider {
+  posição: absoluta;
+  cursor: ponteiro;
+  topo: 0;
+  esquerda: 0;
+  direita: 0;
+  parte inferior: 0;
+  cor de fundo: #ccc;
+  transição: 0,4s;
+  raio da borda: 24px;
+}
+.slider:before {
+  posição: absoluta;
+  contente: "";
+  altura: 16px;
+  largura: 16px;
+  esquerda: 4px;
+  parte inferior: 4px;
+  cor de fundo: branca;
+  transição: 0,4s;
+  raio-da-borda: 50%;
+}
+input:checked + .slider {
+  cor de fundo: #4CAF50;
+}
+input:checked + .slider:before {
+  transformar: traduzirX(20px);
+}
+.filtrar-abas {
+  Exibir: flexível;
+  espaçamento: 8px;
+  overflow-x: automático;
+  preenchimento: 8px 0;
+}
+.filtrar-tab {
+  espaço em branco: nowrap;
+  preenchimento: 8px 12px;
+  fundo: #f0f0f0;
+  raio da borda: 24px;
+  cursor: ponteiro;
+}
+.filter-tab.active {
+  fundo: var(--color-secondary);
+  cor: #fff;
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <h1> vBeta</h1>
+  <div id="userInfo"></div>
+</header>
+
+<principal>
+  <div id="loginScreen" class="screen active">
+    <h2>Entrar</h2>
+    <p class="small">Use 'DEVGUI' (admin) ou 'DEMO' (acesso restrito) com a senha 'DEMO'.</p>
+    <input type="text" id="loginKey" placeholder="Key" class="input-field">
+    <input type="password" id="loginPass" placeholder="Senha" class="input-field">
+    <button class="btn-primary" onclick="login()">Entrar</button>
+    <button class="btn-ghost" onclick="registerUser()">Cadastrar</button>
+    <button class="btn-ghost" onclick="guestLogin()">Entrar como Visitante</button>
+  </div>
+
+  <div id="totemScreen" class="screen">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h2 style="margin:0;">Cardápio</h2>
+      <button class="btn-ghost" onclick="toAdminPanel()" id="manageBtn" style="display:none;">Gerenciar</button>
+    </div>
+    <div id="categoryTabs" class="filter-tabs"></div>
+    <div id="subcategoryTabs" class="filter-tabs" style="display:none;"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:8px;" id="totemGrid"></div>
+  </div>
+
+  <div id="adminScreen" class="screen">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h2 style="margin:0;">Painel de controle</h2>
+      <button class="btn-ghost" onclick="toTotem()">Totem</button>
+    </div>
+    <div class="tabs-container" id="adminTabs"></div>
+    <div id="tab-dashboard" class="tab-content">
+      <h3>Resumo</h3>
+      <div id="dashboardSummary"></div>
+      <h3>Pedidos Recentes</h3>
+      <div id="ordersList"></div>
+    </div>
+    <div id="tab-products" class="tab-content">
+      <h3>Gerenciar Produtos</h3>
+      <form id="prodForm">
+        <input type="hidden" id="prodId">
+        <input type="text" id="prodName" placeholder="Nome" class="input-field" required>
+        <input type="number" id="prodPrice" placeholder="Preço" class="input-field" step="0.01" required>
+        <div style="margin: 8px 0;">
+            <input type="checkbox" id="isComboToggle" onchange="toggleComboFields()"> É um Combo?
+        </div>
+        <div id="nonComboFields">
+          <input type="text" id="prodCat" placeholder="Categoria" class="input-field">
+          <input type="text" id="prodSubcat" placeholder="Subcategoria" class="input-field">
+          <input type="number" id="prodStock" placeholder="Estoque" class="input-field" required>
+        </div>
+        <div id="comboFields" style="display:none;">
+          <input type="text" id="comboItems" placeholder="IDs dos Itens do Combo (ex: id1,id2)" class="input-field">
+          <div style="margin: 8px 0;">
+            <input type="checkbox" id="isPromotionalToggle" onchange="togglePromoOptions()"> É promocional?
+          </div>
+          <div id="promoOptions" style="display: none;">
+            <label class="small">Opções de Promoção:</label><br>
+            <input type="radio" id="promoType1" name="promoType" value="mais-caro" checked onchange="updatePromoPrice()">
+            <label for="promoType1" class="small">Pagar apenas o produto mais caro</label><br>
+            <input type="radio" id="promoType2" name="promoType" value="preco-fixo" onchange="updatePromoPrice()">
+            <label for="promoType2" class="small">Escolher um preço para o combo</label><br>
+          </div>
+          <label class="small">Validade (em dias):</label>
+          <input type="number" id="promoValidity" placeholder="Valor (dias)" class="input-field" value="0">
+        </div>
+        <input type="text" id="prodImg" placeholder="URL da imagem" class="input-field">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-ghost" onclick="resetForm('prodForm')">Limpar</button>
+      </formulário>
+      <hr class="hr">
+      <table class="table-data" id="prodTable"></table>
+    </div>
+    <div id="tab-people" class="tab-content">
+      <h3>Gerenciar Pessoas</h3>
+      <form id="personForm">
+        <input type="hidden" id="personId">
+        <input type="text" id="personName" placeholder="Nome" class="input-field">
+        <input type="tel" id="personPhone" placeholder="Telefone" class="input-field">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-ghost" onclick="resetForm('personForm')">Limpar</button>
+      </formulário>
+      <hr class="hr">
+      <table class="table-data" id="peopleTable"></table>
+    </div>
+    <div id="tab-coupons" class="tab-content">
+      <h3>Gerenciar Cupons</h3>
+      <form id="couponForm">
+        <input type="hidden" id="couponId">
+        <input type="text" id="couponCode" placeholder="Código" class="input-field">
+        <input type="number" id="couponValue" placeholder="Valor (R$)" class="input-field" step="0.01">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-ghost" onclick="resetForm('couponForm')">Limpar</button>
+      </formulário>
+      <hr class="hr">
+      <table class="table-data" id="couponsTable"></table>
+    </div>
+    <div id="tab-ads" class="tab-content">
+      <h3>Gerenciar Publicidade</h3>
+      <form id="adsForm">
+        <input type="hidden" id="adsId">
+        <input type="text" id="adsContent" placeholder="Conteúdo do anúncio" class="input-field">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-ghost" onclick="resetForm('adsForm')">Limpar</button>
+      </formulário>
+      <hr class="hr">
+      <table class="table-data" id="adsTable"></table>
+    </div>
+    <div id="tab-keys" class="tab-content">
+      <h3>Chaves Gerenciar</h3>
+      <form id="keyForm">
+        <input type="hidden" id="keyId">
+        <input type="text" id="keyKey" placeholder="Key" class="input-field">
+        <input type="text" id="keyPass" placeholder="Senha" class="input-field">
+        <select id="keyRole" class="input-field"></select>
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-ghost" onclick="resetForm('keyForm')">Limpar</button>
+      </formulário>
+      <hr class="hr">
+      <table class="table-data" id="keysTable"></table>
+    </div>
+    <div id="tab-custom" class="tab-content">
+      <h3>Personalização de Layout</h3>
+      <div style="display:grid;gap:8px;">
+        <div>
+          <label for="customPrimary" class="small">Cor Primária:</label>
+          <input type="color" id="customPrimary" class="input-field">
+        </div>
+        <div>
+          <label for="customSecondary" class="small">Cor Secundária:</label>
+          <input type="color" id="customSecondary" class="input-field">
+        </div>
+        <div>
+          <label for="customBg" class="small">Cor de Fundo:</label>
+          <input type="color" id="customBg" class="input-field">
+        </div>
+        <button class="btn-primary" onclick="saveCustom()">Aplicar</button>
+      </div>
+    </div>
+    <div id="tab-settings" class="tab-content">
+      <h3>Configurações e Dados</h3>
+      <div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="storeOpenToggle" onchange="toggleStoreStatus()">
+          <span class="slider"></span>
+        </label>
+        <span id="storeStatusLabel">Loja Fechada</span>
+      </div>
+      <label for="waPhone" class="small">Telefone WhatsApp:</label>
+      <input type="tel" id="waPhone" class="input-field">
+      <button class="btn-primary" onclick="saveSetup()">Salvar</button>
+      <hr class="hr">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-secondary" onclick="exportData()">Exportar Dados (JSON)</button>
+        <label for="importFile" class="btn-ghost">Importar Dados (JSON)</label>
+        <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <button class="btn-danger" onclick="resetAllData()">Limpar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer" id="drawer">
+    <h3>Carrinho</h3>
+    <div id="cartItems" style="margin-bottom:12px;"></div>
+    <div style="font-weight:bold;margin-top:12px;">Total: R$ <span id="cartSum">0,00</span></div>
+    <button class="btn-primary" onclick="checkout()">Finalizar pedido</button>
+    <button class="btn-ghost" onclick="clearCart()">Limpar</button>
+    <button class="btn-ghost" onclick="toggleDrawer()">Fechar</button>
+  </div>
+
+  <div id="cartFab" onclick="toggleDrawer()">
+    ðŸ›'
+    <div id="cartCount">0</div>
+  </div>
+</main>
+<div id="toast" class="toast"></div>
+
+<script>
+/* -------------------- Estado Global e Armazenamento de Dados -------------------- */
+const LS = {PRODS:'mcProds',PEOPLE:'mcPeople',COUPONS:'mcCoupons',KEYS:'mcKeys',CART:'mcCart',PUB:'mcPub',SETUP:'mcSetup',CUSTOM:'mcCustom',ORDERS:'mcOrders'};
+const ESTADO = {
+  usuário: nulo,
+  produtos: [],
+  pessoas: [],
+  cupons: [],
+  teclas: [],
+  carrinho: { itens: [] },
+  pub: [],
+  configuração: { whatsapp: '', últimaAtualização: null, lojaAberta: true },
+  personalizado: { primário: '#FFCC00', secundário: '#DA291C', fundo: '#fff', fonte: 'Inter' },
+  pedidos: [],
+  desfazerHistórico: [],
+  ponteiro de desfazer: -1,
+  categoriaSelecionada: 'Todos',
+  subcategoria selecionada: nula
+};
+
+const KEY_LIMITS = {
+  'A_DEVGUI': 1,
+  'A_DEMO': 1,
+  'B': 2,
+  'C': 2,
+  'D': 50
+};
+const ROLE_PERMISSIONS = {
+  'A': ['A', 'B', 'C', 'D', 'E'],
+  'B': ['B', 'C', 'D', 'E'],
+  'C': ['D', 'E'],
+  'D': [],
+  'E': []
+};
+const ADMIN_TABS_CONFIG = {
+  'painel de controle': { nome: 'Painel de controle', função: ['A', 'B'] },
+  'produtos': { nome: 'ðŸ ” Produtos', função: ['A', 'B'] },
+  'pessoas': { nome: 'ðŸ'¤ Pessoas', função: ['A', 'B'] },
+  'cupons': { nome: 'Cupons', função: ['A', 'B'] },
+  'anúncios': { nome: 'ðŸ“¢ Publicidade', função: ['A', 'B'] },
+  'keys': { name: 'ðŸ”' Keys', role: ['A', 'B', 'C'] },
+  'custom': { nome: 'ðŸŽ¨ Personalizar', função: ['A', 'B'] },
+  'settings': { name: 'âš™ï¸ Config', role: ['A', 'B'] },
+};
+
+/* -------------------- Funções utilitárias -------------------- */
+function $(id) { return document.getElementById(id); }
+function lsGet(k) { return JSON.parse(localStorage.getItem(k) || '[]'); }
+function lsSet(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+function genId() { return Date.now(); }
+function formatMoney(v) { return (v || 0).toFixed(2).replace('.', ','); }
+função toast(msg) {
+  const t = $('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+função recordState() {
+  se (STATE.undoPointer < STATE.undoHistory.length - 1) {
+    STATE.undoHistory = STATE.undoHistory.slice(0, STATE.undoPointer + 1);
+  }
+  const newState = JSON.stringify({ products: STATE.products, people: STATE.people, coupons: STATE.coupons, keys: STATE.keys, orders: STATE.orders, setup: STATE.setup });
+  ESTADO.desfazerHistórico.push(novoEstado);
+  STATE.undoPointer = STATE.undoHistory.length - 1;
+}
+função desfazer() {
+  se (STATE.undoPointer > 0) {
+    STATE.undoPointer--;
+    const prevState = JSON.parse(STATE.undoHistory[STATE.undoPointer]);
+    STATE.products = prevState.products;
+    STATE.people = prevState.people;
+    STATE.coupons = prevState.coupons;
+    STATE.keys = prevState.keys;
+    STATE.orders = prevState.orders;
+    ESTADO.setup = prevState.setup;
+    salvarTudo();
+    renderAllAdminTables();
+    renderProdutos();
+    renderDashboard();
+    brinde('última ação desfeita.');
+  } outro {
+    toast('Nada para desfazer.');
+  }
+}
+função podeCriarChave(função) {
+  Se (!STATE.user) retornar falso;
+  const userRole = STATE.user.role;
+  retornar ROLE_PERMISSIONS[userRole].includes(role);
+}
+função hasKeyLimitReached(role) {
+  se (role === 'E') retorne falso;
+  const count = STATE.keys.filter(k => k.role === role).length;
+  const keyType = (role === 'A') ? (STATE.keys.find(k => k.role === 'A' && k.key === 'DEVGUI') ? 'A_DEVGUI' : 'A_DEMO') : role;
+  retornar contagem >= KEY_LIMITS[keyType];
+}
+
+/* -------------------- Inicializadores -------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  carregarTudo();
+  aplicarPersonalizações();
+  se (window.location.hash === '#admin') {
+    const devKey = STATE.keys.find(k => k.key === 'DEVGUI' && k.pass === '###*');
+    se (devKey) {
+      STATE.user = devKey;
+      toAdminPanel();
+    } outro {
+      para fazer login();
+    }
+  } outro {
+    para fazer login();
+  }
+  renderProdutos();
+  renderCarrinho();
+  renderSettings();
+  renderCategories();
+});
+
+função carregarTudo() {
+  STATE.produtos = lsGet(LS.PRODS);
+  ESTADO.pessoas = lsGet(LS.PESSOAS);
+  STATE.coupons = lsGet(LS.COUPONS);
+  STATE.keys = lsGet(LS.KEYS);
+  STATE.cart = JSON.parse(localStorage.getItem(LS.CART) || '{"items":[]}');
+  STATE.pub = lsGet(LS.PUB);
+  STATE.setup = JSON.parse(localStorage.getItem(LS.SETUP) || '{"whatsapp":"", "storeOpen":true}');
+  STATE.custom = JSON.parse(localStorage.getItem(LS.CUSTOM) || JSON.stringify(STATE.custom));
+  STATE.orders = lsGet(LS.ORDERS);
+
+  // Insira os dados iniciais se estiverem vazios
+  se (!STATE.keys.length) {
+    STATE.keys.push({ id: genId(), key: 'DEVGUI', pass: '###*', role: 'A', active: true, unlimited: true });
+    STATE.keys.push({ id: genId(), key: 'DEMO', pass: 'DEMO', role: 'A', active: true, unlimited: false });
+  }
+  se (!STATE.products.length) {
+    STATE.products.push({ id: genId(), name: 'Cheeseburger', price: 15.00, cat: 'Lanches', subcat: 'SanduÃches', stock: 10, img: 'https://via.placeholder.com/150/DA291C/FFFFFF?text=Cheeseburger', available: true, isCombo: false, isPromotional: false, promoType: null, promoValidity: 0, comboItems: [] });
+    STATE.products.push({ id: genId(), nome: 'Batata Média', preço: 8,00, gato: 'Acompanhamentos', subcat: 'Fritos', estoque: 20, img: 'https://via.placeholder.com/150/FFCC00/000000?text=Batata', disponível: true, isCombo: false, isPromotional: false, promoType: null, promoValidity: 0, comboItems: [] });
+    STATE.products.push({ id: genId(), name: 'Coca-Cola', price: 5.00, cat: 'Bebidas', subcat: 'Refrigerantes', stock: 30, img: 'https://via.placeholder.com/150/000000/FFFFFF?text=Coca-Cola', available: true, isCombo: false, isPromotional: false, promoType: null, promoValidity: 0, comboItems: [] });
+  }
+  salvarTudo();
+}
+função salvarTudo() {
+  lsSet(LS.PRODS, STATE.products);
+  lsSet(LS.PEOPLE, STATE.people);
+  lsSet(LS.CUPONS, STATE.coupons);
+  lsSet(LS.KEYS, STATE.keys);
+  lsSet(LS.CART, STATE.cart);
+  lsSet(LS.PUB, STATE.pub);
+  lsSet(LS.SETUP, STATE.setup);
+  lsSet(LS.CUSTOM, STATE.custom);
+  lsSet(LS.ORDERS, STATE.orders);
+}
+
+/* -------------------- Renderização de tela e interface do usuário -------------------- */
+função para fazer login() {
+  switchScreen('loginScreen');
+  $('userInfo').innerText = '';
+  $('manageBtn').style.display = 'none';
+}
+função toTotem() {
+  switchScreen('totemScreen');
+  se (ESTADO.usuário && (ESTADO.usuário.função === 'A' || ESTADO.usuário.função === 'B' || ESTADO.usuário.função === 'C')) {
+    $('manageBtn').style.display = 'block';
+  } outro {
+    $('manageBtn').style.display = 'none';
+  }
+}
+função toAdminPanel() {
+  switchScreen('adminScreen');
+  renderDashboard();
+  renderAllAdminTables();
+  renderAdminTabs();
+}
+função switchScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(screenId).classList.add('active');
+  $('drawer').classList.remove('open');
+}
+função aplicarPersonalizações() {
+  document.documentElement.style.setProperty('--color-primary', STATE.custom.primary);
+  document.documentElement.style.setProperty('--color-secondary', STATE.custom.secondary);
+  document.documentElement.style.setProperty('--bg', STATE.custom.bg);
+  document.documentElement.style.setProperty('--font', `'${STATE.custom.font}', sans-serif`);
+  $('customPrimary').value = STATE.custom.primary;
+  $('customSecondary').value = STATE.custom.secondary;
+  $('customBg').value = STATE.custom.bg;
+}
+função salvarPersonalizado() {
+  STATE.custom.primary = $('customPrimary').value;
+  STATE.custom.secondary = $('customSecondary').value;
+  STATE.custom.bg = $('customBg').value;
+  aplicarPersonalizações();
+  lsSet(LS.CUSTOM, STATE.custom);
+  toast('Tema salvo!');
+}
+função renderizarAbaAdministrativas() {
+  const tabsContainer = $('adminTabs');
+  tabsContainer.innerHTML = '';
+  const userRole = STATE.user ? STATE.user.role : null;
+  
+  seja firstTab = nulo;
+
+  para (const tabKey em ADMIN_TABS_CONFIG) {
+    const config = ADMIN_TABS_CONFIG[tabKey];
+    se (config.role.include(userRole)) {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn';
+      btn.dataset.tab = tabKey;
+      btn.innerText = config.name;
+      btn.onclick = () => {
+        document.querySelectorAll('#adminTabs .tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('ativo');
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        $(`tab-${tabKey}`).classList.add('active');
+        se (tabKey === 'dashboard') renderDashboard();
+      };
+      tabsContainer.appendChild(btn);
+      se (!primeiraAba) primeiraAba = btn;
+    }
+  }
+  se (primeiraaba) {
+    primeiraTab.classList.add('ativo');
+    $(`tab-${firstTab.dataset.tab}`).classList.add('active');
+  }
+}
+
+/* -------------------- Login e Permissões -------------------- */
+função login() {
+  const key = $('loginKey').value.trim();
+  const pass = $('loginPass').value.trim();
+  const k = STATE.keys.find(k => k.key === key && k.pass === pass && k.active);
+  if (!k) { toast('Tecla inválida'); return; }
+  ESTADO.usuário = k;
+  $('userInfo').innerText = `Logado: ${k.key} (${k.role})`;
+  toTotem();
+  toast('Login realizado!');
+}
+
+função registerUser() {
+    se (hasKeyLimitReached('D')) {
+        brinde('Limite de chaves D atingidas.');
+        retornar;
+    }
+    const key = prompt('Escolha sua Key:');
+    if (!key) { toast('Operação cancelada.'); return; }
+    se (STATE.keys.find(k => k.key === key)) {
+        brinde('Esta Key já existe.');
+        retornar;
+    }
+    const pass = prompt('Escolha sua senha:');
+    if (!pass) { toast('Operação cancelada.'); return; }
+    
+    const newKey = { id: genId(), key, pass, role: 'D', active: true };
+    STATE.keys.push(newKey);
+    salvarTudo();
+    brinde('Cadastro realizado! Agora você pode logar.');
+    $('loginKey').value = chave;
+    $('loginPass').value = senha;
+}
+
+função guestLogin() {
+    const key = 'VISITANTE_' + Date.now().toString().slice(-4);
+    const pass = 'convidado';
+    const newKey = { id: genId(), key, pass, role: 'E', active: true };
+    STATE.keys.push(newKey);
+    salvarTudo();
+    ESTADO.usuário = novaChave;
+    $('userInfo').innerText = `Logado: ${key} (E)`;
+    toTotem();
+    brinde('Acesso ao visitante.');
+}
+
+/* -------------------- Totem e Carrinho -------------------- */
+função renderizarCategorias() {
+  const categories = ['Todos', ...new Set(STATE.products.filter(p => !p.isCombo).map(p => p.cat))].filter(c => c);
+  const catTabs = $('categoryTabs');
+  catTabs.innerHTML = '';
+  
+  categorias.forEach(cat => {
+    const btn = document.createElement('div');
+    btn.className = `filter-tab ${STATE.selectedCategory === cat ? 'active' : ''}`;
+    btn.innerText = gato;
+    btn.onclick = () => filterProducts(cat);
+    catTabs.appendChild(btn);
+  });
+  
+  se (STATE.selectedCategory && STATE.selectedCategory !== 'Todos') {
+      renderSubcategories(STATE.selectedCategory);
+  } outro {
+      $('subcategoryTabs').style.display = 'none';
+  }
+
+  renderProdutos();
+}
+função renderSubcategories(category) {
+    const subcats = ['Todos', ...new Set(STATE.products.filter(p => p.cat === category && !p.isCombo).map(p => p.subcat))].filter(sc => sc);
+    const subcatTabs = $('subcategoryTabs');
+    subcatTabs.innerHTML = '';
+
+    if (subcats.length > 1) { // 1 devido a 'Todos'
+        subcatTabs.style.display = 'flex';
+        subcats.forEach(subcat => {
+            const btn = document.createElement('div');
+            btn.className = `filter-tab ${STATE.selectedSubcategory === subcat ? 'active' : ''}`;
+            btn.innerText = subcat;
+            btn.onclick = () => filterProducts(category, subcat);
+            subcatTabs.appendChild(btn);
+        });
+    } outro {
+        subcatTabs.style.display = 'nenhum';
+        STATE.selectedSubcategory = null;
+    }
+}
+função filterProducts(category, subcategory = null) {
+  STATE.selectedCategory = categoria;
+  STATE.selectedSubcategory = subcategoria;
+  
+  document.querySelectorAll('#categoryTabs .filter-tab').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#categoryTabs .filter-tab[data-category="${category}"]`)?.classList.add('active');
+
+  se (categoria === 'Todos') {
+    $('subcategoryTabs').style.display = 'none';
+  } outro {
+    renderSubcategories(category);
+  }
+  renderProdutos();
+}
+função renderizarProdutos() {
+  const grid = $('totemGrid');
+  grid.innerHTML = '';
+  
+  let filteredProducts = STATE.products.filter(p => p.available);
+  
+  // Mostrar todos os produtos e combos
+  se (STATE.selectedCategory === 'Todos') {
+    produtosFiltrados = ESTADO.produtos.filter(p => p.disponível);
+  } outro {
+    // Filtrar por categoria e subcategoria
+    produtosFiltrados = produtosFiltrados.filter(p => p.cat === STATE.selectedCategory);
+    se (STATE.selectedSubcategory && STATE.selectedSubcategory !== 'Todos') {
+        produtosFiltrados = produtosFiltrados.filter(p => p.subcat === STATE.selectedSubcategory);
+    }
+  }
+
+  filteredProducts.forEach((p) => {
+    const div = document.createElement('div');
+    div.className = 'card-item';
+    div.onclick = () => addToCart(p.id);
+    const comboInfo = p.isCombo? 'Combo': '';
+    div.innerHTML = `<div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+      <div style="padding:4px;font-weight:bold">${p.name}</div>
+      <div style="padding:2px" class="small">R$ ${formatMoney(p.price)}${comboInfo}</div>
+      <div style="padding:2px" class="kv">Estoque: ${p.isCombo ? '---' : p.stock}</div>`;
+    grid.appendChild(div);
+  });
+}
+function toggleDrawer() { $('drawer').classList.toggle('open'); }
+função renderCarrinho() {
+  const lista = $('cartItems');
+  const countEl = $('cartCount');
+  lista.innerHTML = '';
+  if (!STATE.cart.items.length) { list.innerHTML = '<div class="small">Carrinho vazio</div>'; countEl.innerText = '0'; $('cartSum').innerText = formatMoney(0); return; }
+  seja soma = 0;
+  ESTADO.carrinho.itens.paraCada(i => {
+    soma += i.preço * i.quantidade;
+    const row = document.createElement('div');
+    linha.estilo.exibir = 'flex';
+    row.style.justifyContent = 'espaço-entre';
+    row.style.alignItems = 'center';
+    row.style.margin = '4px 0';
+    linha.innerHTML = `<span>${i.qty}x ${i.pname}</span>
+      <div>
+        <button class="btn-ghost" onclick="changeCartQty(${i.id},-1)">-</button>
+        <button class="btn-ghost" onclick="changeCartQty(${i.id},1)">+</button>
+      </div>`;
+    lista.appendChild(linha);
+  });
+  countEl.innerText = STATE.cart.items.reduce((s, i) => s + i.qty, 0);
+  $('cartSum').innerText = formatMoney(soma);
+  lsSet(LS.CART, STATE.cart);
+}
+função adicionarAoCarrinho(id) {
+  se (!STATE.setup.storeOpen && (STATE.user.role === 'D' || STATE.user.role === 'E')) {
+    brinde('Loja fechada. Não é possível adicionar itens ao carrinho no momento.');
+    retornar;
+  }
+  
+  const p = STATE.products.find(x => x.id == id); if (!p) return;
+  se (p.isCombo) {
+      const allItemsHaveStock = p.comboItems.every(itemId => {
+          const item = STATE.products.find(prod => prod.id == itemId);
+          item devolvida && item.estoque > 0;
+      });
+      se (!todosOsItensTêmEstoque) {
+          brinde(`Um ou mais itens do combo "${p.name}" estão fora de estoque.`);
+          retornar;
+      }
+      p.comboItems.forEach(itemId => {
+          const item = STATE.products.find(prod => prod.id == itemId);
+          se (item) item.estoque--;
+      });
+  } senão se (p.stock <= 0) {
+      brinde(`${p.name} está fora de estoque.`);
+      retornar;
+  } outro {
+      p.stock--;
+  }
+
+  let item = STATE.cart.items.find(x => x.id == id);
+  if (item) { item.qty++; } else { STATE.cart.items.push({ id, pname: p.name, price: p.price, qty: 1, isCombo: p.isCombo, comboItems: p.comboItems }); }
+  
+  renderCarrinho();
+  renderProdutos();
+  brinde(`${p.name} adicionado!`);
+}
+função alterarQtdCarrinho(id, ch) {
+  let item = STATE.cart.items.find(x => x.id == id);
+  se (!item) retornar;
+  
+  const p = STATE.products.find(x => x.id == id);
+  se (!p) retornar;
+  
+  se (ch > 0 && p.isCombo) {
+    const allItemsHaveStock = p.comboItems.every(itemId => {
+        const item = STATE.products.find(prod => prod.id == itemId);
+        item devolvida && item.estoque > 0;
+    });
+    se (!todosOsItensTêmEstoque) {
+        brinde(`Um ou mais itens do combo "${p.name}" estão fora de estoque.`);
+        retornar;
+    }
+    p.comboItems.forEach(itemId => {
+        const item = STATE.products.find(prod => prod.id == itemId);
+        se (item) item.estoque--;
+    });
+  } senão se (ch > 0 && p.stock <= 0) {
+    brinde(`${p.name} está fora de estoque.`);
+    retornar;
+  } senão se (!p.isCombo) {
+      p.stock -= ch;
+  }
+
+  item.qty += ch;
+  
+  se (item.qty <= 0) {
+      se (item.isCombo) {
+        item.comboItems.forEach(itemId => {
+            const indItem = STATE.products.find(prod => prod.id == itemId);
+            if(indItem) indItem.stock += 1;
+        });
+      }
+      STATE.cart.items = STATE.cart.items.filter(x => x.id != id);
+  }
+  
+  renderCarrinho();
+  renderProdutos();
+}
+função limparCarrinho() {
+  ESTADO.carrinho.itens.paraCada(item => {
+    const p = STATE.products.find(x => x.id == item.id);
+    se (!p) retornar;
+    se (p.isCombo) {
+        p.comboItems.forEach(itemId => {
+            const indItem = STATE.products.find(prod => prod.id == itemId);
+            if(indItem) indItem.stock += item.qty;
+        });
+    } outro {
+        p.estoque += item.qtd;
+    }
+  });
+  STATE.cart.items = [];
+  renderCarrinho();
+  renderProdutos();
+  brinde('Carrinho limpo.');
+}
+
+/* -------------------- Confira -------------------- */
+função checkout() {
+  if (!STATE.cart.items.length) { toast('Carrinho vazio'); return; }
+  const telefone = ESTADO.setup.whatsapp;
+  if (!phone) { brinde('WhatsApp não configurado. Por favor, avise o gerente.'); retornar; }
+  const nome = prompt('Seu nome:');
+  if (!name) { brinde('Pedido cancelado.'); retornar; }
+  
+  const ordem = {
+    id: genId(),
+    data: novo Date().toLocaleString(),
+    nome,
+    itens: STATE.cart.items,
+    total: STATE.cart.items.reduce((s, i) => s + i.price * i.qty, 0)
+  };
+  
+  ESTADO.pedidos.push(pedido);
+  lsSet(LS.ORDERS, STATE.orders);
+  
+  let msg = `Olá! Novo pedido de *${name}*:\n\n`;
+  order.items.forEach(i => { msg += `${i.qty}x ${i.pname} - R$ ${formatMoney(i.price * i.qty)}\n` });
+  msg += `\nTotal do pedido: R$ ${formatMoney(order.total)}`;
+  
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  
+  STATE.cart.items = [];
+  renderCarrinho();
+  brinde('Pedido enviado! Aguarde a confirmação.');
+}
+
+/* -------------------- Painel de Administração - Gerenciamento -------------------- */
+função renderizarTodasAsTabelasAdministrativas() {
+  renderizarTabelaProdutos();
+  renderPeopleTable();
+  renderizarTabelaDeCupons();
+  renderAdsTable();
+  renderKeysTable();
+  renderKeyRoleOptions();
+}
+
+função renderizarPainel() {
+  const summaryEl = $('dashboardSummary');
+  const ordersEl = $('ordersList');
+  const totalSales = STATE.orders.reduce((s, o) => s + o.total, 0);
+  const totalOrders = STATE.orders.length;
+  const vendasDeProdutos = {};
+  STATE.orders.forEach(o => o.items.forEach(i => {
+    vendasDoProduto[i.pname] = (vendasDoProduto[i.pname] || 0) + i.qty;
+  }));
+  const topProduct = Object.keys(productSales).sort((a, b) => productSales[b] - productSales[a])[0] || 'N/A';
+  
+  summaryEl.innerHTML = `
+    <p><strong>Total de Vendas:</strong> R$ ${formatMoney(totalSales)}</p>
+    <p><strong>Total de Pedidos:</strong> ${totalOrders}</p>
+    <p><strong>Produto Mais Vendido:</strong> ${topProduct} (${topProduct !== 'N/A' ? productSales[topProduct] : 0} unidades)</p>
+  `;
+  
+  ordersEl.innerHTML = `
+    <table class="table-data">
+      <thead>
+        <tr><th>ID</th><th>Dados</th><th>Cliente</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        ${STATE.orders.reverse().slice(0, 5).map(o => `<tr><td>${o.id}</td><td>${o.date.split(',')[0]}</td><td>${o.name}</td><td>R$ ${formatMoney(o.total)}</td></tr>`).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+// Produtos
+função toggleComboFields() {
+    const isCombo = $('isComboToggle').checked;
+    $('nonComboFields').style.display = isCombo ? 'none' : 'block';
+    $('comboFields').style.display = isCombo ? 'block' : 'none';
+
+    $('prodPrice').required = isCombo ? false : true;
+    $('prodCat').required = isCombo ? false : true;
+    $('prodStock').required = isCombo ? false : true;
+    $('comboItems').required = isCombo ? verdadeiro: falso;
+
+    // Redefinir campos promocionais ao ativar/desativar combinação
+    $('isPromotionalToggle').checked = false;
+    alternarOpçõesPromocionais();
+}
+
+função togglePromoOptions() {
+  const isPromotional = $('isPromotionalToggle').checked;
+  const isCombo = $('isComboToggle').checked;
+  
+  se (!isCombo) {
+    $('promoOptions').style.display = 'nenhum';
+    $('promoValidity').style.display = 'nenhum';
+    $('isPromotionalToggle').checked = false;
+    retornar;
+  }
+
+  $('promoOptions').style.display = isPromotional ? 'block' : 'none';
+  $('promoValidity').style.display = isPromotional ? 'block' : 'none';
+
+  se (éPromocional) {
+    const promoType = document.querySelector('input[name="promoType"]:checked').value;
+    if (promoType === 'mais caro') {
+      $('prodPrice').required = false;
+      atualizarPreçoPromocional();
+    } outro {
+      $('prodPrice').required = true;
+    }
+  } outro {
+    $('prodPrice').required = true;
+  }
+}
+
+função atualizarPreçoPromocional() {
+  const promoType = document.querySelector('input[name="promoType"]:checked').value;
+  const priceInput = $('prodPrice');
+  
+  if (promoType === 'mais caro') {
+    const comboItems = $('comboItems').value.split(',').map(item => parseInt(item.trim()));
+    const prices = comboItems.map(itemId => {
+      const item = STATE.products.find(p => p.id === itemId);
+      devolver item ? item.preço : 0;
+    });
+    const maxPrice = Math.max(...prices);
+    priceInput.value = maxPrice;
+    priceInput.readOnly = true;
+  } outro {
+    priceInput.readOnly = false;
+  }
+}
+
+document.querySelectorAll('input[name="promoType"]').forEach(radio => {
+  radio.addEventListener('change', updatePromoPrice);
+});
+$('comboItems').addEventListener('input', updatePromoPrice);
+
+$('prodForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = $('prodId').value;
+  const nome = $('prodName').valor;
+  const isCombo = $('isComboToggle').checked;
+  
+  let price, cat, subcat, stock, comboItems, img, isPromotional, promoType, promoValidity;
+
+  se (éCombo) {
+    comboItems = $('comboItems').value.split(',').map(item => parseInt(item.trim()));
+    se (comboItems.length < 2) {
+      brinde('Um combo deve ter pelo menos 2 produtos.');
+      retornar;
+    }
+    gato = 'Combos';
+    subcategoria = '';
+    estoque = 999;
+    img = $('prodImg').value || 'https://via.placeholder.com/150/DA291C/FFFFFF?text=Combo';
+    isPromotional = $('isPromotionalToggle').checked;
+    promoType = isPromotional ? document.querySelector('input[name="promoType"]:checked').value : null;
+    promoValidity = isPromotional ? parseInt($('promoValidity').value) : 0;
+    preço = parseFloat($('prodPrice').value);
+  } outro {
+    preço = parseFloat($('prodPrice').value);
+    gato = $('prodCat').valor;
+    subcat = $('prodSubcat').value;
+    estoque = parseInt($('prodStock').value);
+    comboItems = [];
+    img = $('prodImg').value || 'https://via.placeholder.com/150';
+    isPromotional = falso;
+    promoType = nulo;
+    promoValidity = 0;
+  }
+  
+  const novoItem = {
+    eu fiz ? parseInt(id): genId(),
+    nome,
+    preço,
+    gato,
+    subcategoria,
+    estoque,
+    imagem,
+    disponível: verdadeiro,
+    éCombo,
+    é promocional,
+    Tipo de promoção,
+    Validade da promoção,
+    comboItens
+  };
+  
+  se (id) {
+    const prodIndex = STATE.products.findIndex(p => p.id == id);
+    se (prodIndex !== -1) {
+      STATE.products[prodIndex] = novoItem;
+      toast('Produto!!');
+    }
+  } outro {
+    ESTADO.produtos.push(novoItem);
+    toast('Produto adicionado!');
+  }
+  registrarEstado();
+  salvarTudo();
+  resetForm('prodForm');
+  renderizarTabelaProdutos();
+  renderProdutos();
+  renderCategories();
+});
+
+função renderizarTabelaDeProdutos() {
+  const tabela = $('prodTable');
+  table.innerHTML = `<thead><tr><th>ID</th><th>Nome</th><th>Preço</th><th>Categoria</th><th>Subcategoria</th><th>Estoque</th><th>Combo</th><th>Promoção</th><th>Acessórios</th></tr></thead><tbody>
+    ${STATE.products.map(p => {
+        const comboInfo = p.isCombo? `SIM (${p.comboItems.join(', ')})` : 'NÃO';
+        const promoInfo = p.isPromocional? `SIM (${p.promoType})` : 'NÃO';
+        retornar `<tr><td>${p.id}</td><td>${p.name}</td><td>R$ ${formatMoney(p.price)}</td><td>${p.cat || 'N/A'}</td><td>${p.subcat || 'N/A'}</td><td>${p.isCombo ? '---' : p.stock}</td><td>${comboInfo}</td><td>${promoInfo}</td>
+      <td><button class="btn-ghost" onclick="editItem('products', ${p.id})">Editar</button>
+      <button class="btn-danger" onclick="deleteItem('products', ${p.id})">Excluir</button></td></tr>`;
+    }).juntar('')}
+  </tbody>`;
+}
+
+// Pessoas
+$('personForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = $('personId').value;
+  const nome = $('personName').valor;
+  const telefone = $('personPhone').value;
+  se (id) {
+    const p = STATE.people.find(x => x.id == id);
+    if (p) { p.nome = nome; p.telefone = telefone; brinde('Pessoa atualizada!'); }
+  } outro {
+    STATE.people.push({ id: genId(), nome, telefone });
+    toast('Pessoa tâmara!');
+  }
+  registrarEstado();
+  salvarTudo();
+  resetForm('personForm');
+  renderPeopleTable();
+});
+função renderizarTabelaPessoas() {
+  const tabela = $('peopleTable');
+  tabela.innerHTML = `<thead><tr><th>ID</th><th>Nome</th><th>Telefone</th><th>Açães</th></tr></thead><tbody>
+    ${STATE.people.map(p => `<tr><td>${p.id}</td><td>${p.name}</td><td>${p.phone}</td>
+      <td><button class="btn-ghost" onclick="editItem('people', ${p.id})">Editar</button>
+      <button class="btn-danger" onclick="deleteItem('people', ${p.id})">Excluir</button></td></tr>`).join('')}
+  </tbody>`;
+}
+
+// Cupons
+$('couponForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = $('couponId').value;
+  const code = $('couponCode').value;
+  valor const = parseFloat($('couponValue').valor);
+  se (id) {
+    const c = STATE.coupons.find(x => x.id == id);
+    if (c) { c.código = código; c.valor = valor; brinde('Cupom atualizado!'); }
+  } outro {
+    STATE.coupons.push({ id: genId(), code, value, active: true });
+    brinde('Copo adicionado!');
+  }
+  registrarEstado();
+  salvarTudo();
+  resetForm('couponForm');
+  renderizarTabelaDeCupons();
+});
+função renderizarTabelaDeCupons() {
+  const tabela = $('couponsTable');
+  table.innerHTML = `<thead><tr><th>ID</th><th>Código</th><th>Valor</th><th>Açães</th></tr></thead><tbody>
+    ${STATE.coupons.map(c => `<tr><td>${c.id}</td><td>${c.code}</td><td>R$ ${formatMoney(c.value)}</td>
+      <td><button class="btn-ghost" onclick="editItem('coupons', ${c.id})">Editar</button>
+      <button class="btn-danger" onclick="deleteItem('coupons', ${c.id})">Excluir</button></td></tr>`).join('')}
+  </tbody>`;
+}
+
+// Anúncios
+$('adsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = $('adsId').value;
+  const content = $('adsContent').value;
+  se (id) {
+    const a = STATE.pub.find(x => x.id == id);
+    if (a) { a.content = content; brinde('Anúncio atualizado!'); }
+  } outro {
+    STATE.pub.push({ id: genId(), conteúdo });
+    brinde('Anúncio adicionado!');
+  }
+  registrarEstado();
+  salvarTudo();
+  resetForm('adsForm');
+  renderAdsTable();
+});
+função renderizarTabelaDeAnúncios() {
+  const tabela = $('adsTable');
+  table.innerHTML = `<thead><tr><th>ID</th><th>Conteúdo</th><th>Açães</th></tr></thead><tbody>
+    ${STATE.pub.map(a => `<tr><td>${a.id}</td><td>${a.content}</td>
+      <td><button class="btn-ghost" onclick="editItem('ads', ${a.id})">Editar</button>
+      <button class="btn-danger" onclick="deleteItem('ads', ${a.id})">Excluir</button></td></tr>`).join('')}
+  </tbody>`;
+}
+
+// Teclas
+função renderKeyRoleOptions() {
+  const select = $('keyRole');
+  select.innerHTML = '';
+  const allowedRoles = ROLE_PERMISSIONS[STATE.user.role];
+  allowedRoles.forEach(role => {
+    se (role === 'A' && !STATE.user.unlimited) retorne;
+    const option = document.createElement('option');
+    option.value = função;
+    option.innerText = `Tipo ${role}`;
+    selecionar.appendChild(opção);
+  });
+}
+$('keyForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = $('keyId').value;
+  const key = $('keyKey').value;
+  const pass = $('keyPass').value;
+  const role = $('keyRole').value;
+
+  se (hasKeyLimitReached(role)) {
+    brinde(`Limite de chaves tipo ${role} atingidas.`);
+    retornar;
+  }
+  se (!canCreateKey(role)) {
+    brinde(`Sua chave não tem permissão para criar chaves do tipo ${role}.`);
+    retornar;
+  }
+
+  se (id) {
+    const k = STATE.keys.find(x => x.id == id);
+    if (k) { k.key = key; k.pass = pass; k.role = role; toast('Chave atualizada!'); }
+  } outro {
+    STATE.keys.push({ id: genId(), key, pass, role, active: true });
+    toast('KeyTag!');
+  }
+  registrarEstado();
+  salvarTudo();
+  resetForm('keyForm');
+  renderKeysTable();
+});
+função renderizarTabelaDeChaves() {
+  const tabela = $('keysTable');
+  table.innerHTML = `<thead><tr><th>ID</th><th>Chave</th><th>Função</th><th>Ativa</th><th>Ações</th></tr></thead><tbody>
+    ${STATE.keys.map(k => `<tr><td>${k.id}</td><td>${k.key}</td><td>${k.role}</td><td>${k.active ? 'Sim' : 'Não'}</td>
+      <td><button class="btn-ghost" onclick="editItem('keys', ${k.id})">Editar</button>
+      <button class="btn-danger" onclick="deleteItem('keys', ${k.id})">Excluir</button></td></tr>`).join('')}
+  </tbody>`;
+}
+
+// Editar/Excluir Geral
+função editarItem(entidade, id) {
+  const item = STATE[entity].find(x => x.id == id);
+  se (!item) retornar;
+  const form = document.forms[`${entity.slice(0, -1)}Form`];
+  se (!formulário) retornar;
+  
+  form.querySelector('input[type="hidden"]').value = item.id;
+  
+  se (entidade === 'produtos') {
+    $('isComboToggle').checked = item.isCombo;
+    $('isPromotionalToggle').checked = item.isPromotional;
+    se (item.isPromotional) {
+      document.querySelector(`input[name="promoType"][value="${item.promoType}"]`).checked = true;
+      $('promoValidity').value = item.promoValidity;
+    }
+    
+    se (item.isCombo) {
+      $('comboItems').value = item.comboItems.join(', ');
+      $('prodPrice').value = item.price;
+      $('prodCat').value = '';
+      $('prodSubcat').value = '';
+      $('prodStock').value = '';
+    } outro {
+      $('prodCat').value = item.cat || '';
+      $('prodSubcat').value = item.subcat || '';
+      $('prodStock').value = item.stock;
+      $('prodPrice').value = item.price;
+      $('comboItems').value = '';
+    }
+    
+    $('prodName').value = item.nome;
+    $('prodImg').value = item.img || '';
+
+    alternarCamposCombinados();
+    alternarOpçõesPromocionais();
+    atualizarPreçoPromocional();
+    
+  } outro {
+    para (constante chave em item) {
+      const input = form.querySelector(`#${entity.slice(0, -1)}${key.charAt(0).toUpperCase() + key.slice(1)}`);
+      se (entrada) {
+        se (input.type === 'checkbox') {
+            input.checked = item[key];
+        } else if (Array.isArray(item[key])) {
+            input.value = item[key].join(', ');
+        } outro {
+            input.value = item[key] || '';
+        }
+      }
+    }
+  }
+  
+  brinde('Item carregado para edição.');
+}
+função deleteItem(entidade, id) {
+  if (confirm('Tem certeza?')) {
+    ESTADO[entidade] = ESTADO[entidade].filter(x => x.id != id);
+    salvarTudo();
+    renderAllAdminTables();
+    renderProdutos();
+    renderCategories();
+    registrarEstado();
+    toast('Item excluído!');
+  }
+}
+função resetForm(formId) {
+  const form = $(formId);
+  formulário.redefinir();
+  form.querySelector('input[type="hidden"]').value = '';
+  se (formId === 'prodForm') {
+    $('isComboToggle').checked = false;
+    $('isPromotionalToggle').checked = false;
+    alternarCamposCombinados();
+    alternarOpçõesPromocionais();
+  }
+}
+
+// Configurações
+função renderSettings() {
+  $('waPhone').value = STATE.setup.whatsapp;
+  $('storeOpenToggle').checked = STATE.setup.storeOpen;
+  $('storeStatusLabel').innerText = STATE.setup.storeOpen? 'Loja Aberta': 'Loja Fechada';
+}
+função alternarStatusDaLoja() {
+  STATE.setup.storeOpen = !STATE.setup.storeOpen;
+  $('storeStatusLabel').innerText = STATE.setup.storeOpen? 'Loja Aberta': 'Loja Fechada';
+  salvarTudo();
+  registrarEstado();
+  brinde(`A loja agora está ${STATE.setup.storeOpen ? 'aberta' : 'fechada'}.`);
+}
+função salvarConfiguração() {
+  STATE.setup.whatsapp = $('waPhone').value;
+  lsSet(LS.SETUP, STATE.setup);
+  brinde('Configurações salvas!');
+}
+
+// Exportação/Importação de Dados
+função exportarDados() {
+  const data = JSON.stringify(STATE, (key, value) => {
+      // Excluir dados temporários/de tempo de execução da exportação
+      se (chave === 'undoHistory' || chave === 'undoPointer' || chave === 'user') {
+          retornar indefinido;
+      }
+      valor de retorno;
+  }, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mcclone_data_${new Date().toISOString()}.json`;
+  a.clique();
+  URL.revokeObjectURL(url);
+  toast('Dados exportados!');
+}
+função importData(evento) {
+  const file = event.target.files[0];
+  se (!arquivo) retornar;
+  const leitor = novo FileReader();
+  leitor.onload = (e) => {
+    tentar {
+      const importedState = JSON.parse(e.target.result);
+      if (confirm('Importar? Isso substituirá todos os dados atuais.')) {
+        para (const key em importedState) {
+          se (STATE.hasOwnProperty(key) && key !== 'user' && key !== 'undoHistory' && key !== 'undoPointer') {
+            ESTADO[chave] = estadoImportado[chave];
+          }
+        }
+        salvarTudo();
+        carregarTudo();
+        brinde('Dados importados com sucesso!');
+        toAdminPanel();
+      }
+    } catch (erro) {
+      brinde('Erro ao importar. Arquivo JSON inválido.');
+    }
+  };
+  leitor.lerComoTexto(arquivo);
+}
+função resetAllData() {
+  if (confirm('Tem certeza que quer limpar TUDO?')) {
+    localStorage.clear();
+    localização.recarregar();
+  }
+}
+
+// Atalhos Globais
+document.addEventListener('keydown', (e) => {
+  se (e.key === 'Escape') {
+    se ($('drawer').classList.contains('open')) {
+      alternarGaveta();
+    }
+  }
+  se (e.ctrlKey && e.key === 'z') {
+    e.preventDefault();
+    desfazer();
+  }
+  se (e.key === 'F11') {
+    e.preventDefault();
+    se (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } outro {
+      document.exitFullscreen();
+    }
+  }
+});
+</script>
+
+</body>
+</html>
