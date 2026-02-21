@@ -1,27 +1,118 @@
 {
-  "whatsapp": "5511999999999",
-  "categories": [
+  "branding": {
+    "nome": "Moraes’s Grill",
+    "slogan": "Tradição na brasa. Tem Moraes.",
+    "rodape": "by product Labriolag"
+  },
+  "unidades": [
     {
-      "name": "Lanches",
-      "products": [
-        {
-          "name": "X-Burguer",
-          "price": 18.00
-        },
-        {
-          "name": "X-Salada",
-          "price": 20.00
-        }
-      ]
+      "id": "alphaville",
+      "nome": "Moraes’s Grill Alphaville",
+      "whatsapp": "5511944907671"
     },
     {
-      "name": "Bebidas",
-      "products": [
-        {
-          "name": "Refrigerante Lata",
-          "price": 6.00
-        }
-      ]
+      "id": "pirapora",
+      "nome": "Moraes’s Grill Pirapora",
+      "whatsapp": "5511917500309"
+    }
+  ],
+  "config": {
+    "horarioFuncionamento": "Domingo das 11:00 às 15:00",
+    "corPrimaria": "#7A1C1C"
+  },
+  "entrega": {
+    "ativa": true,
+    "regioes": [
+      {
+        "nome": "Alphaville",
+        "ativa": true,
+        "subRegioes": [
+          { "nome": "Alphaville 0", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
+          { "nome": "Alphaville 1", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
+          { "nome": "Alphaville 2", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
+          { "nome": "Alphaville 6", "taxa": 8, "pedidoMinimo": 120, "ativo": true },
+          { "nome": "Alphaville 12", "taxa": 10, "pedidoMinimo": 150, "ativo": true }
+        ]
+      },
+      {
+        "nome": "Tamboré",
+        "ativa": true,
+        "subRegioes": [
+          { "nome": "Tamboré 1", "taxa": 10, "pedidoMinimo": 150, "ativo": true },
+          { "nome": "Tamboré 2", "taxa": 12, "pedidoMinimo": 180, "ativo": true }
+        ]
+      }
+    ]
+  },
+  "horariosDisponiveis": [
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00"
+  ],
+  "categorias": [
+    { "id": "carnes", "nome": "Carnes na Brasa", "ativa": true },
+    { "id": "acompanhamentos", "nome": "Acompanhamentos", "ativa": true },
+    { "id": "bebidas", "nome": "Bebidas", "ativa": true }
+  ],
+  "produtos": [
+    {
+      "id": "costela",
+      "nome": "Costela na Brasa",
+      "descricao": "Carro-chefe da casa. Assada lentamente até ficar extremamente macia.",
+      "modoVenda": "peso",
+      "precoKg": 89.90,
+      "categoria": "carnes",
+      "imagem": "assets/img/costela-hero.jpg",
+      "destaque": true,
+      "disponivel": true
+    },
+    {
+      "id": "frango",
+      "nome": "Frango Assado",
+      "descricao": "Frango inteiro assado na brasa com tempero especial.",
+      "modoVenda": "fixo",
+      "preco": 45.00,
+      "categoria": "carnes",
+      "imagem": "assets/img/frango.jpg",
+      "destaque": false,
+      "disponivel": true
+    },
+    {
+      "id": "farofa",
+      "nome": "Farofa Especial",
+      "descricao": "Farofa temperada com bacon e ervas.",
+      "modoVenda": "fixo",
+      "preco": 18.00,
+      "categoria": "acompanhamentos",
+      "imagem": "assets/img/acompanhamentos.jpg",
+      "destaque": false,
+      "disponivel": true
+    },
+    {
+      "id": "arroz",
+      "nome": "Arroz da Casa",
+      "descricao": "Arroz soltinho preparado no dia.",
+      "modoVenda": "fixo",
+      "preco": 15.00,
+      "categoria": "acompanhamentos",
+      "imagem": "assets/img/marmita.jpg",
+      "destaque": false,
+      "disponivel": true
+    },
+    {
+      "id": "coca2l",
+      "nome": "Coca-Cola 2L",
+      "descricao": "Refrigerante 2 litros.",
+      "modoVenda": "fixo",
+      "preco": 12.00,
+      "categoria": "bebidas",
+      "imagem": "assets/img/bebidas.jpg",
+      "destaque": false,
+      "disponivel": true
     }
   ]
 }
