@@ -1,118 +1,66 @@
 {
-  "branding": {
-    "nome": "Moraes’s Grill",
-    "slogan": "Tradição na brasa. Tem Moraes.",
-    "rodape": "by product Labriolag"
-  },
-  "unidades": [
-    {
-      "id": "alphaville",
-      "nome": "Moraes’s Grill Alphaville",
-      "whatsapp": "5511944907671"
-    },
-    {
-      "id": "pirapora",
-      "nome": "Moraes’s Grill Pirapora",
-      "whatsapp": "5511917500309"
-    }
-  ],
-  "config": {
-    "horarioFuncionamento": "Domingo das 11:00 às 15:00",
-    "corPrimaria": "#7A1C1C"
-  },
-  "entrega": {
-    "ativa": true,
-    "regioes": [
-      {
-        "nome": "Alphaville",
-        "ativa": true,
-        "subRegioes": [
-          { "nome": "Alphaville 0", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
-          { "nome": "Alphaville 1", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
-          { "nome": "Alphaville 2", "taxa": 6, "pedidoMinimo": 100, "ativo": true },
-          { "nome": "Alphaville 6", "taxa": 8, "pedidoMinimo": 120, "ativo": true },
-          { "nome": "Alphaville 12", "taxa": 10, "pedidoMinimo": 150, "ativo": true }
-        ]
-      },
-      {
-        "nome": "Tamboré",
-        "ativa": true,
-        "subRegioes": [
-          { "nome": "Tamboré 1", "taxa": 10, "pedidoMinimo": 150, "ativo": true },
-          { "nome": "Tamboré 2", "taxa": 12, "pedidoMinimo": 180, "ativo": true }
-        ]
-      }
-    ]
-  },
-  "horariosDisponiveis": [
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00"
-  ],
   "categorias": [
-    { "id": "carnes", "nome": "Carnes na Brasa", "ativa": true },
-    { "id": "acompanhamentos", "nome": "Acompanhamentos", "ativa": true },
-    { "id": "bebidas", "nome": "Bebidas", "ativa": true }
+    { "id": "acomp", "nome": "Acompanhamentos" },
+    { "id": "brasa", "nome": "Na Brasa" },
+    { "id": "bebidas", "nome": "Bebidas" }
   ],
   "produtos": [
+
+    {
+      "id": "arroz350",
+      "nome": "Arroz Carreteiro 350ml",
+      "descricao": "Tradicional, sabor intenso.",
+      "categoria": "acomp",
+      "preco": 18.00,
+      "modoVenda": "und",
+      "imagem": "assets/img/arroz.jpg",
+      "disponivel": true
+    },
+    {
+      "id": "arroz500",
+      "nome": "Arroz Carreteiro 500ml",
+      "descricao": "Ideal para 2 pessoas.",
+      "categoria": "acomp",
+      "preco": 25.00,
+      "modoVenda": "und",
+      "imagem": "assets/img/arroz.jpg",
+      "disponivel": true
+    },
+    {
+      "id": "feijao350",
+      "nome": "Feijão Tropeiro 350ml",
+      "descricao": "Clássico mineiro.",
+      "categoria": "acomp",
+      "preco": 16.00,
+      "modoVenda": "und",
+      "imagem": "assets/img/feijao.jpg",
+      "disponivel": true
+    },
     {
       "id": "costela",
       "nome": "Costela na Brasa",
-      "descricao": "Carro-chefe da casa. Assada lentamente até ficar extremamente macia.",
-      "modoVenda": "peso",
-      "precoKg": 89.90,
-      "categoria": "carnes",
-      "imagem": "assets/img/costela-hero.jpg",
-      "destaque": true,
+      "descricao": "Sem osso, cortada e temperada.",
+      "categoria": "brasa",
+      "preco": 55.00,
+      "modoVenda": "und",
+      "imagem": "assets/img/costela.jpg",
       "disponivel": true
     },
     {
       "id": "frango",
-      "nome": "Frango Assado",
-      "descricao": "Frango inteiro assado na brasa com tempero especial.",
-      "modoVenda": "fixo",
-      "preco": 45.00,
-      "categoria": "carnes",
+      "nome": "Frango Coxa/Sobrecoxa Defumado",
+      "descricao": "Suculento e dourado na brasa.",
+      "categoria": "brasa",
+      "preco": 35.00,
+      "modoVenda": "und",
       "imagem": "assets/img/frango.jpg",
-      "destaque": false,
       "disponivel": true
-    },
+    }
+  ],
+  "unidades": [
     {
-      "id": "farofa",
-      "nome": "Farofa Especial",
-      "descricao": "Farofa temperada com bacon e ervas.",
-      "modoVenda": "fixo",
-      "preco": 18.00,
-      "categoria": "acompanhamentos",
-      "imagem": "assets/img/acompanhamentos.jpg",
-      "destaque": false,
-      "disponivel": true
-    },
-    {
-      "id": "arroz",
-      "nome": "Arroz da Casa",
-      "descricao": "Arroz soltinho preparado no dia.",
-      "modoVenda": "fixo",
-      "preco": 15.00,
-      "categoria": "acompanhamentos",
-      "imagem": "assets/img/marmita.jpg",
-      "destaque": false,
-      "disponivel": true
-    },
-    {
-      "id": "coca2l",
-      "nome": "Coca-Cola 2L",
-      "descricao": "Refrigerante 2 litros.",
-      "modoVenda": "fixo",
-      "preco": 12.00,
-      "categoria": "bebidas",
-      "imagem": "assets/img/bebidas.jpg",
-      "destaque": false,
-      "disponivel": true
+      "nome": "Alphaville",
+      "whatsapp": "+5511944907671"
     }
   ]
 }
